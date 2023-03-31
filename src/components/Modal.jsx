@@ -1,8 +1,18 @@
 import React from 'react'
+import Mensaje from './Mensaje'
 import CerrarBtn from '../img/cerrar.svg'
+import { useState } from 'react'
 
-const Modal = ({setModal, animarModal, setAnimarModal}) => {
+const Modal = ({setModal, animarModal, setAnimarModal, guardarGasto}) => {
   
+  const [mensaje, setMensaje] = useState('')
+
+  const [nombre, setNombre] = useState('')
+  const [cantidad, setCantidad] = useState('')
+  const [categoria, setCategoria] = useState('')
+
+
+
   const ocultarModal = () => {
     setAnimarModal(false)
     setTimeout(() => {
@@ -10,6 +20,18 @@ const Modal = ({setModal, animarModal, setAnimarModal}) => {
     }, 500)
   }
   
+    const handleSubmit = e => {
+      e.preventDefault()
+      if([nombre, cantidad, categoria].includes('')){
+        setMensaje('Todos los campos son obligatorios')        
+        setTimeout(()=>{
+          setMensaje('')
+        }, 3000)
+        return
+      }
+      guardarGasto({nombre, cantidad, categoria})
+    }
+
     return (
     <div className='modal'>
         <div className="cerrar-modal">
@@ -17,26 +39,37 @@ const Modal = ({setModal, animarModal, setAnimarModal}) => {
                 alt="cerrar"
                 onClick={ocultarModal}/>
         </div>
-        <form className={`formulario ${animarModal ? "animar" : 'cerrar'}`}>
+        <form 
+              onSubmit={handleSubmit}
+              className={`formulario ${animarModal ? "animar" : 'cerrar'}`}>
             <legend>Nuevo Gasto</legend>
+
+            {mensaje && <Mensaje tipo="error">{mensaje}</Mensaje>}
+
             <div className="campo">
               <label htmlFor="nombre">Nombre Gasto</label>
               <input 
                   id='nombre'
                   type="text"
-                  placeholder='Añade el nombre del gasto' />
+                  placeholder='Añade el nombre del gasto'
+                  value={nombre}
+                  onChange={ e => setNombre(e.target.value)} />
             </div>
             <div className="campo">
               <label htmlFor="cantidad">Cantidad</label>
               <input 
                   id='cantidad'
                   type="number"
-                  placeholder='Añade la cantidad del gasto: ej 40000' />
+                  placeholder='Añade la cantidad del gasto: ej 40000'
+                  value={cantidad}
+                  onChange={ e => setCantidad(Number(e.target.value))} />
             </div>
             <div className="campo">
               <label htmlFor="categoria">Categoría</label>
-              <select name="" id="categoria">
-                <option value="">Selecciona</option>
+              <select name="" id="categoria"
+                      value={categoria}
+                      onChange={ e => setCategoria(e.target.value)}>
+                <option value="">--Selecciona--</option>
                 <option value="ahorro">Ahorro</option>
                 <option value="comida">Comida</option>
                 <option value="casa">Gastos varios</option>

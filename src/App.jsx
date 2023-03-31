@@ -10,6 +10,7 @@ function App() {
   const [modal, setModal] = useState(false)
   const [animarModal, setAnimarModal] = useState(false)
 
+  const [gastos, setGastos] = useState([])
 
   const handleNuevoGasto = () => {
     setModal(true)
@@ -17,6 +18,10 @@ function App() {
     setTimeout(()=>{
       setAnimarModal(true)
     }, 500)
+  }
+
+  const guardarGasto = gasto => {
+    console.log(gasto)
   }
 
   return (
@@ -36,7 +41,8 @@ function App() {
       )}
       {modal && <Modal setModal={setModal}
                       animarModal={animarModal}
-                      setAnimarModal={setAnimarModal}/>}
+                      setAnimarModal={setAnimarModal}
+                      guardarGasto={guardarGasto}/>}
       
     </div>
   )
