@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import IconoNuevoGasto from './img/nuevo-gasto.svg'
 import Header from './components/Header'
 import Modal from './components/Modal'
@@ -13,6 +13,14 @@ function App() {
   const [animarModal, setAnimarModal] = useState(false)
 
   const [gastos, setGastos] = useState([])
+
+  const [gastoEditar, setGastoEditar] = useState({})
+
+  useEffect(()=>{
+    if( Object.keys(gastoEditar).length > 0){
+      handleNuevoGasto()
+    }
+  }, [gastoEditar])
 
   const handleNuevoGasto = () => {
     setModal(true)
@@ -45,7 +53,8 @@ function App() {
         <>
           <main>
             <ListadoGastos 
-                gastos={gastos}/>
+                gastos={gastos}
+                setGastoEditar={setGastoEditar}/>
           </main>
           <div className="nuevo-gasto">
             <img  src={IconoNuevoGasto}
