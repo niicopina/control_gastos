@@ -4,6 +4,7 @@ import Header from './components/Header'
 import Modal from './components/Modal'
 import ListadoGastos from './components/ListadoGastos'
 import { generarId } from './helpers'
+import Filtros from './components/Filtros'
 
 
 function App() {
@@ -19,6 +20,14 @@ function App() {
   )
 
   const [gastoEditar, setGastoEditar] = useState({})
+
+  const [filtro, setFiltro] = useState('')
+
+  useEffect(() => {
+    if(filtro){
+     //Filtros por categoria
+    }
+  }, [filtro])  
 
   useEffect(()=>{
     if( Object.keys(gastoEditar).length > 0){
@@ -87,6 +96,9 @@ function App() {
       {isValidPresupuesto && (
         <>
           <main>
+            <Filtros
+              filtro={filtro}
+              setFiltro={setFiltro} />
             <ListadoGastos 
                 gastos={gastos}
                 setGastoEditar={setGastoEditar}
