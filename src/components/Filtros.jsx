@@ -12,7 +12,12 @@ const Filtros = ({filtro, setFiltro}) => {
                         <option value="">--Categorías--</option>
                         <option value="ahorro">Ahorro</option>
                         <option value="comida">Comida</option>
-                        <option value="casa">Gastos varios</option>
+                        <option value="alquiler">Alquiler</option>
+                        <option value="tarjetas">Tarjetas</option>
+                        <option value="transporte">Transporte</option>
+                        <option value="compras hogar">Compras del hogar</option>
+                        <option value="ropa">Ropa</option>
+                        <option value="cuotas">Cuotas</option>
                         <option value="ocio">Ocio</option>
                         <option value="salud">Salud</option>
                         <option value="suscripciones">Suscripciones</option>
