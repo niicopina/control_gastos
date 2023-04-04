@@ -22,10 +22,13 @@ function App() {
   const [gastoEditar, setGastoEditar] = useState({})
 
   const [filtro, setFiltro] = useState('')
+  const [gastosFiltrados, setGastosFiltrados] = useState([])
+
 
   useEffect(() => {
     if(filtro){
-     //Filtros por categoria
+     const gastosFiltrados = gastos.filter(gasto => gasto.categoria === filtro)
+      setGastosFiltrados()
     }
   }, [filtro])  
 
@@ -102,7 +105,10 @@ function App() {
             <ListadoGastos 
                 gastos={gastos}
                 setGastoEditar={setGastoEditar}
-                eliminarGasto={eliminarGasto} />
+                eliminarGasto={eliminarGasto}
+                filtro={filtro}
+                gastosFiltrados={gastosFiltrados}
+                  />
           </main>
           <div className="nuevo-gasto">
             <img  src={IconoNuevoGasto}
